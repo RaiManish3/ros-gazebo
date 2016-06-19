@@ -1,0 +1,246 @@
+<?xml version='1.0'?>
+<sdf version='1.4'>
+<model name="try1">
+
+<static>false</static>
+
+
+<!-- for base-->
+
+<link name='base'>
+<pose>0 0 0.025 0 0 0</pose>
+
+<collision name='base_collision'>
+<geometry >
+<cylinder>
+<radius>.1</radius>
+<length>.05</length>
+</cylinder>
+</geometry>
+</collision>
+
+<visual name='base_visual'>
+<geometry >
+<cylinder>
+<radius>.1</radius>
+<length>.05</length>
+</cylinder>
+</geometry>
+</visual>
+
+</link>
+
+
+<!-- for shoulder-->
+<link name='shoulder'>
+<pose>0 0 0.15 0 0 0</pose>
+
+<collision name='shoulder_collision'> 
+<geometry>
+<cylinder>
+<radius>0.01</radius>
+<length>.3</length>
+</cylinder>
+</geometry>
+</collision>
+
+<visual name='shoulder_visual'> 
+<geometry>
+<cylinder>
+<radius>0.01</radius>
+<length>.3</length>
+</cylinder>
+</geometry>
+</visual>
+
+</link>
+
+<!-- for elbow-->
+
+<link name='elbow'>
+	<pose>0 0.14 0.325 0 1.5707 1.5707</pose>
+
+ 	<collision name='elbow_collision'>
+ 		<geometry>
+ 			<cylinder>
+ 				<radius>0.01</radius>
+ 				<length>.3</length>
+ 			</cylinder>
+ 		</geometry>
+ 	</collision>
+
+ 	<visual name='elbow_visual'>
+ 		<geometry>
+ 			<cylinder>
+ 				<radius>0.01</radius>
+ 				<length>.3</length>
+ 			</cylinder>
+ 		</geometry>
+ 	</visual>
+
+        
+
+          	<collision name='elbow_ex_collision1'>
+                <pose>0 0.01 0.16 0 0 0</pose>
+ 		<geometry>
+ 			<box>
+ 				<size>0.025 0.0001 0.05</size>
+ 			</box>
+ 		</geometry>
+ 	</collision>
+
+        <visual name='elbow_ex_visual1'>
+                <pose>0 0.01 0.16 0 0 0</pose>
+ 		<geometry>
+ 			<box>
+ 				<size>0.025 0.0001 0.05</size>
+ 			</box>
+ 		</geometry>
+ 	</visual>
+
+	<collision name='elbow_ex_collision2'>
+                <pose>0 -0.01 0.16 0 0 0</pose>
+ 		<geometry>
+ 			<box>
+ 				<size>0.025 0.0001 0.05</size>
+ 			</box>
+ 		</geometry>
+ 	</collision>
+
+        <visual name='elbow_ex_visual2'>
+                <pose>0 -0.01 0.16 0 0 0</pose>
+ 		<geometry>
+ 			<box>
+ 				<size>0.025 0.0001 0.05</size>
+ 			</box>
+ 		</geometry>
+ 	</visual>
+
+
+ </link>
+
+<!-- for wrist-->
+<link name='wrist'>
+<pose>0 0.45 0.325 0 1.5707 1.5707</pose>
+
+<collision name='wrist_collision'> 
+<geometry>
+<cylinder>
+<radius>0.01</radius>
+<length>.3</length>
+</cylinder>
+</geometry>
+</collision>
+
+<visual name='wrist_visual'> 
+<geometry>
+<cylinder>
+<radius>0.01</radius>
+<length>.3</length>
+</cylinder>
+</geometry>
+</visual>
+
+</link>
+
+
+<!-- for connectors-->
+ <link name='connector1'>
+ 	<pose>0.011 0 0.31 0 0 0</pose>
+
+<collision name='connector1_collision'>
+ 	<geometry>
+ 		<box>
+ 			<size>.001 0.01 0.05</size>
+ 		</box>
+ 	</geometry>
+ </collision>
+
+
+<visual name='connector1_visual'>
+ 	<geometry>
+ 		<box>
+ 			<size>.001 0.01 0.05</size>
+ 		</box>
+ 	</geometry>
+ </visual>
+</link>
+
+ <link name='connector2'>
+ 	<pose>-0.011 0 0.31 0 0 0</pose>
+
+<collision name='connector2_collision'>
+ 	<geometry>
+ 		<box>
+ 			<size>.001 0.01 0.05</size>
+ 		</box>
+ 	</geometry>
+ </collision>
+
+
+<visual name='connector2_visual'>
+ 	<geometry>
+ 		<box>
+ 			<size>.001 0.01 0.05</size>
+ 		</box>
+ 	</geometry>
+ </visual>
+</link>
+
+ 
+
+<!-- for joints-->
+<joint name='base_shoulder' type='revolute'>
+	<parent>shoulder</parent>
+	<child>base</child>
+	<pose>0 0 -0.15 0 0 0</pose>
+	<axis> <xyz>0 0 1</xyz></axis>
+</joint>
+
+<joint name='shou_conn1' type='revolute'>
+<parent>shoulder</parent>
+	<child>connector1</child>
+	<pose>0 0 0 0 0 0</pose>
+	<axis> <xyz>0 0 1</xyz><limit><upper>0</upper><lower>0</lower></limit></axis>
+</joint>
+
+<joint name='shou_conn2' type='revolute'>
+<parent>shoulder</parent>
+	<child>connector2</child>
+	<pose>0 0 0 0 0 0</pose>
+	<axis> <xyz>0 0 1</xyz><limit><upper>0</upper><lower>0</lower></limit></axis>
+</joint>
+
+<joint name='elbow_conn1' type='revolute'>
+	<parent>elbow</parent>
+	<child>connector1</child>
+	<pose>0 0 0 0 0 0</pose>
+	<axis> <xyz>1 0 0</xyz><limit><upper>0.785</upper><lower>-0.785</lower></limit></axis>
+</joint>
+
+
+<joint name='elbow_conn2' type='revolute'>
+	<parent>elbow</parent>
+	<child>connector2</child>
+	<pose>0 0 0 0 0 0</pose>
+	<axis> <xyz>1 0 0</xyz><limit><upper>0.785</upper><lower>-0.785</lower></limit></axis>
+</joint>
+
+<joint name='elbow_wrist' type='revolute'>
+	<parent>wrist</parent>
+	<child>elbow</child>
+	<pose>0 0 0.15 0 0 0</pose>
+	<axis> <xyz>1 0 0</xyz><limit><upper>0.785</upper><lower>-0.785</lower></limit></axis>
+</joint>
+
+<!--
+<joint name='shoulder_elbow' type='revolute'>
+	<parent>shoulder</parent>
+	<child>elbow</child>
+	<pose>0 0 0.31 0 1.5707 1.5707</pose>
+	<axis> <xyz>0 0 1</xyz></axis>
+</joint>
+-->
+
+</model>
+</sdf>
